@@ -1,0 +1,30 @@
+<!-- Category Management Modal -->
+<div id="category-modal" class="modal-overlay hide">
+    <div class="modal-card">
+        <h2 class="modal-title">Manage Categories</h2>
+        <form id="category-form" style="margin-bottom: 20px;">
+            <div class="form-group">
+                <label for="category-name">Category Name</label>
+                <input type="text" id="category-name" name="name" placeholder="e.g. Electronics, Books" required />
+            </div>
+            <div class="form-group">
+                <label for="category-slug">Slug (Optional - auto-generated if blank)</label>
+                <input type="text" id="category-slug" name="slug" placeholder="e.g. electronics" />
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" class="button button-primary button-sm" id="save-category-btn">Create Category</button>
+            </div>
+        </form>
+
+        <div style="border-top: 1px solid var(--border); padding-top: 16px;">
+            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main);">Existing Categories</h3>
+            <div id="category-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                <!-- Dynamically populated category list items -->
+            </div>
+        </div>
+
+        <div class="modal-footer" style="margin-top: 16px;">
+            <button type="button" class="button button-secondary" id="close-category-modal-btn">Close</button>
+        </div>
+    </div>
+</div>

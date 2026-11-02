@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BambangShop Catalog</title>
+    <link rel="stylesheet" href="{% static 'catalog/css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div>
+            <h1>BambangShop Catalog</h1>
+            <p class="subtitle">Single-App Hybrid Architecture: Django Template Front-end with DRF API via AJAX</p>
+        </div>
+        <div class="header-actions">
+            {% if user.is_authenticated %}
+                <span class="badge badge-category">Logged in: <strong>{{ user.username }}</strong></span>
+                <a href="{% url 'logout' %}?next=/" class="button button-danger button-sm">Logout</a>
+            {% else %}
+                <span class="badge badge-sku">Guest</span>
+                <a href="{% url 'login' %}?next=/" class="button button-secondary button-sm">Login</a>
+            {% endif %}
+            <button type="button" class="button button-secondary" id="open-category-modal-btn">+ Manage Categories</button>
+            <button type="button" class="button button-primary" id="open-modal-btn">+ Add Product</button>
+        </div>
+    </header>
+
+    <div class="action-bar">
+        <form class="search-form" id="product-search-form" onsubmit="event.preventDefault();">
+            <input
+                type="text"
+                id="search-input"
+                class="search-input"
+                placeholder="Search products by name or SKU..."
+                autocomplete="off"
+            />
+        </form>
+        <select id="category-filter" class="search-input" style="width: auto; min-width: 180px; cursor: pointer;">
+            <option value="">All Categories</option>
+        </select>
+    </div>
+
+    <div id="loading" class="state-message">Loading catalog items...</div>
+    <div id="error" class="state-message state-error hide">Failed to communicate with catalog API. Please try again.</div>
+    <div id="empty" class="state-message hide">No merchandise found in the catalog.</div>
+
+    <main id="grid" class="product-grid hide"></main>
+</div>
+
+{% include 'modals/add_product_modal.html' %}
+{% include 'modals/category_modal.html' %}
+
+<div id="toast-container" class="toast-container"></div>
+
+{% csrf_token %}
+<script src="{% static 'catalog/js/modals.js' %}"></script>
+<script src="{% static 'catalog/js/product_list.js' %}"></script>
+</body>
+</html>
